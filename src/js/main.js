@@ -21,7 +21,7 @@ RadioZenit.initCommon = () => {
         const menu = document.querySelector(".menu-wrap");
         const menuParent = menu.closest(".page-header__menu");
 
-        // при клике на пункт меню в мобильном разрешении нужно закрыть меню
+        // при клике на пункт меню в мобильном разрешении нужно закрыть меню и плейлист
         // ловим на фазе погружения, потому что в противном случае событие не срабатывает
         // видимо, какой-то конфликт с либой MPAjax
         document.addEventListener("click", (event) => {
@@ -30,6 +30,7 @@ RadioZenit.initCommon = () => {
             if (viewportWidth > 991 || menuLink === null) return;
 
             toggleMenu(false);
+            togglePlaylist(false);
         }, true);
 
         // по умолчанию меню скрыто через display: none
@@ -95,25 +96,9 @@ RadioZenit.initCommon = () => {
         const header = document.querySelector(".page-header");
         setHeaderHeight();
 
-        // скрываем меню при переходе
-        const menuLinks = [...document.querySelectorAll(`.menu__link`)];
-        menuLinks.forEach((link) => {
-            link.addEventListener(`click`, () => {
-                const isPlaylistOpened = playlist.classList.contains(PLAYLIST_ANIMATION_CLASSNAME);
-                if (isPlaylistOpened) togglePlaylist(!isPlaylistOpened);
-            });
-        });
-
         // показать/скрыть плейлист плеера
         document.addEventListener("click", (event) => {
             const { target } = event;
-            
-            // проверяем - если это прогресс-бар то выходим
-            if (
-                target.classList.contains(`progress-bar`) || 
-                target.classList.contains(`progress-bar__back`)
-            ) return false;
-            
             const isTogglePlaylistBtn = target === togglePlaylistBtn;
             const isPlayerText = target.closest(".main-player__inner") !== null;
 
@@ -204,7 +189,7 @@ RadioZenit.initCommon = () => {
             const playPodcastBtn = event.target.closest(".js-podcast-play");
 
             if (playPodcastBtn === null) return;
-            
+
             toggleBackToRadioBtn(true);
 
             // выделяем плеер с подкастом (на странице программы), который мы запустили
@@ -267,7 +252,7 @@ RadioZenit.initCommon = () => {
 
             setTitlesTicker();
         });
-        
+
         // при воспроизведении сэмпла песни из истории эфира
         // показываем кнопку "обратно к эфиру"
 
@@ -301,8 +286,8 @@ RadioZenit.initCommon = () => {
             setTitlesTicker();
         });
 
-        // кнопку "вернуться к прямому эфиру" нужно показывать только в случае
-        // если в главном плеере играет подкаст
+        // при воспроизведении подкаста
+        // показываем кнопку "обратно к эфиру"
         const backToRadioBtn = document.querySelector(".page-header__back-to-live");
 
         backToRadioBtn.addEventListener("click", (event) => {
@@ -585,6 +570,8 @@ RadioZenit.initializers[RadioZenit.programPageAn] = () => {
     isDocReady(() => {
         const podcastSliderSelector = ".podcast-slider";
 
+        // слайдер с подкастами находится только на общей (/program) странице программ
+        // на детальной (/program/id/<id>) его нет
         if (document.querySelector(podcastSliderSelector) === null) return;
 
         const { body } = document;
