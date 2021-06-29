@@ -1,0 +1,29 @@
+extends ./components/_base
+
+append vars
+    - pageTitle = "Акции"
+
+append content
+    .container.container_page_inner
+        +breadcrumps({
+            items: ["Акции"]
+        })
+
+        h1.title
+            | Акции
+
+        .action-list
+            - let n = 0
+            while n < 4
+                .action-list__item
+                    .action
+                        a.action__link(href="#")
+                            img.action__img(src=`img/action-${Math.ceil(Math.random() * 2)}.jpg` alt="asd")
+                        .action__desc
+                            | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex minus cum recusandae. Facere voluptatum neque, saepe a hic illum voluptate sapiente quibusdam aut maiores! Veritatis inventore voluptatem deleniti atque fugit! Eveniet nulla quos necessitatibus, quaerat quae, officiis atque qui similique ex numquam tempore, consectetur corrupti suscipit perferendis aut recusandae doloremque?
+                - n++
+
+        .section
+            +pagination
+
+append scripts

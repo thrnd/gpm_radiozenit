@@ -1,0 +1,25 @@
+mixin social-links({ isBiggerSize } = {})
+    -
+        var links = [{
+            link: "https://vk.com/public170898",
+            code: "vk",
+            text: "Радио Зенит во ВКонтакте"
+        }, {
+            link: "https://www.youtube.com/channel/UC94iJtzzDtdjuwAZ_nbiyYg/videos",
+            code: "yt",
+            text: "Радио Зенит в Youtube"
+        }, {
+            link: "https://twitter.com/radiozenit",
+            code: "tw",
+            text: "Радио Зенит в Twitter"
+        }, {
+            link: "https://www.instagram.com/radiozenit897/",
+            code: "ig",
+            text: "Радио Зенит в Instagram"
+        }]
+
+    ul.social-links.list-reset(class=`${isBiggerSize ? "social-links_s_big" : ""}`)&attributes(attributes)
+        each link in links
+            li.social-links__item
+                a.social-links__link(href=link.link target="_blank" rel="noopener" aria-label=link.text)
+                    +svg(link.code)(class="social-links__icon")

@@ -1,0 +1,71 @@
+extends ./components/_base
+
+append vars
+    - pageTitle = "Новости"
+
+append content
+    .container.container_page_inner
+        +breadcrumps({
+            items: ["Новости"]
+        })
+
+        .news
+            h2.title
+                | Новости
+            +tags({
+                data: [{
+                    text: "Новости спорта",
+                    isActive: true
+                }, {
+                    text: "Новости города"
+                }]
+            })
+
+            .news__inner
+                -
+                    var news = [{
+                        title: "«Зенит» разгромил «Ахмат»",
+                        date: "12 января 2021 18:01",
+                        isNew: true
+                    }, {
+                        title: "Женский «Зенит» выиграл первый  матч сезона",
+                        date: "12 января 2021 18:01",
+                        isNew: true
+                    }, {
+                        title: "ЧМ-2021 по хоккею пройдут при пустых трибунах",
+                        date: "12 января 2021 18:01"
+                    }, {
+                        title: "Туомас Саммелвуо рассказл о состоянии Ореола Камехо",
+                        date: "12 января 2021 18:01"
+                    }, {
+                        title: "СКА продлил контракт с Оскаром Фантенбергом",
+                        date: "12 января 2021 18:01"
+                    }, {
+                        title: "СКА продлил контракт с Оскаром Фантенбергом",
+                        date: "12 января 2021 18:01"
+                    }, {
+                        title: "СКА продлил контракт с Оскаром Фантенбергом",
+                        date: "12 января 2021 18:01"
+                    }, {
+                        title: "СКА продлил контракт с Оскаром Фантенбергом",
+                        date: "12 января 2021 18:01"
+                    }, {
+                        title: "СКА продлил контракт с Оскаром Фантенбергом",
+                        date: "12 января 2021 18:01"
+                    }]
+                    var n = 0
+                while n < news.length
+                    +news-preview({
+                        noImg: n === 2,
+                        img: `news-${n + 1}.jpg`,
+                        title: news[n].title,
+                        date: news[n].date,
+                        isNew: news[n].isNew,
+                        isNewsPage: true
+                    })
+                    - n++
+
+        .section
+            +pagination
+
+append scripts

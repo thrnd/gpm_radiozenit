@@ -1,0 +1,67 @@
+extends ./components/_base
+
+append vars
+    - pageTitle = "Контакты"
+
+append content
+    .container.container_page_inner
+        +breadcrumps({
+            items: ["Контакты"]
+        })
+
+        .static-article
+            h1.title
+                | Контакты
+
+            .static-article__section
+                p
+                    | <b>Адрес:</b> 197022, Санкт- Петербург, улица Академика Павлова, дом 5, литера В БЦ River House, 3 этаж
+                P
+                    | <b>Телефон/Факс:</b> <a href="tel:+78123218844">+7 (812) 321-88-44</a>
+                p
+                    | <b>E-mail:</b> <a href="mailto:news2@radiozenit.ru">news2@radiozenit.ru</a>
+                p
+                    | <b>Прямой эфир:</b> <a href="tel:+78123200897">+7 (812) 320-0-89.7</a>
+
+            .static-article__section
+                h2.title.title_s_reduced
+                    | Социальные сети
+
+                +social-links({ isBiggerSize: true })(class="contacts__socials")
+
+            .static-article__section
+                h2.title.title_s_reduced
+                    | Схема проезда
+                <iframe class="contacts__map-frame" src="https://yandex.ru/map-widget/v1/?um=constructor%3A9fe4e3e27dd01bcef450bfc27bc84a328e9bf3a6068471f4e4bc32baa5a39873&amp;source=constructor" width="1000" height="520" frameborder="0"></iframe>
+
+            .static-article__section
+                p
+                    | SMS - сервис:  номер 5533 (sms должно начинаться со слова Zenit или Зенит).
+                p
+                    | Стоимость 1 SMS сообщения (в рублях с НДС) на номер 5533 составляет:
+                p
+                    | Билайн - 9,00 руб.
+                p
+                    | МТС - 8,47 руб.
+                p
+                    | МегаФон - 10,62 руб.
+                p
+                    | TELE2 - 8,46 руб.
+
+            .static-article__section
+                p
+                    | Все входящие SMS сообщения бесплатны. Не все присланные SMS сообщения будут зачитаны в эфире.
+                p
+                    | Техническая поддержка: <a href="tel:+74997912613">+7 (499) 791-26-13</a> или <a href="mailto:abonent@e-vostok.ru">abonent@e-vostok.ru</a>
+                p
+                    | Стоимость отправки SMS для других операторов - уточняйте у технической поддержки.
+
+            .static-article__section
+                h2.title.title_s_reduced
+                    | Выдача призов
+                p
+                    | Ул. Академика Павлова, дом 5, литера В, БЦ River House, 3 этаж, с 10:00 до 19:00 по будним дням. При себе иметь паспорт или другой документ, удостоверяющий личность. Направляя нам указанные данные, Вы даете согласие на обработку персональных данных.
+                p
+                    | Телефон: <a href="tel:+78123218844">+7 (812) 321-88-44</a>
+
+append scripts

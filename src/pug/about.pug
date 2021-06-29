@@ -1,0 +1,70 @@
+extends ./components/_base
+
+append vars
+    - pageTitle = "Контакты"
+
+append content
+    .container.container_page_inner
+        +breadcrumps({
+            items: ["О нас"]
+        })
+
+        .static-article
+            .static-article__section
+                h1.title
+                    | О нас
+
+                p Радио Зенит – петербургская информационная музыкальная спортивная радиостанция.
+                p Вещание круглосуточно на частоте 89.7 FM. Начало вещания 20 октября 2007 года.
+                p Свидетельство о регистрации средства массовой информации ЭЛ № ФС 77 - 71728 от 30 ноября 2017 года.
+                p Распространение сигнала Радио Зенит ведет Санкт-Петербургский Региональный центр (филиал ФГУП «Российская телевизионная и радиовещательная сеть»).
+
+            .static-article__section
+                h2.title.title_s_reduced
+                    | Ведущие
+
+                .team-slider.swiper-container
+                    .team-slider__inner.swiper-wrapper
+                        -
+                            const ppl = [{
+                                name: "Геннадий Орлов",
+                                role: "Генеральный продюсер"
+                            }, {
+                                name: "Казанкина Екатерина",
+                                role: "Ведущая основных новостей"
+                            }, {
+                                name: "Истомин Юрий",
+                                role: "Ведущий специальных новостей, ведущий программы «Руки вверх!"
+                            }, {
+                                name: "Геннадий Орлов",
+                                role: "Генеральный продюсер"
+                            }, {
+                                name: "Казанкина Екатерина",
+                                role: "Ведущая основных новостей"
+                            }, {
+                                name: "Истомин Юрий",
+                                role: "Ведущий специальных новостей, ведущий программы «Руки вверх! И еще и ведущий for real ma man"
+                            }, {
+                                name: "Геннадий Орлов",
+                                role: "Генеральный продюсер"
+                            }, {
+                                name: "Казанкина Екатерина",
+                                role: "Ведущая основных новостей"
+                            }, {
+                                name: "Истомин Юрий",
+                                role: "Ведущий специальных новостей, ведущий программы «Руки вверх!"
+                            }]
+                            let n = 0
+                        while n < ppl.length
+                            .team-slider__slide.swiper-slide
+                                .team-person
+                                    img.team-person__photo(src=`img/team-${Math.round(Math.random() * 2) + 1}.jpg` alt="asdf")
+                                    .team-person__inner
+                                        .team-person__name
+                                            = ppl[n].name
+                                        .team-person__role
+                                            = ppl[n].role
+                            - n++
+
+prepend scripts
+    script(src="js/swiper.5.2.0.min.js")

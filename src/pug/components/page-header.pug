@@ -1,0 +1,169 @@
+header.page-header
+    .page-header__row.page-header__row_t_menu
+        .container.page-header__inner
+            .page-header__menu
+                button.toggle-menu-btn.page-header__btn.menu__toggle-btn(type="button" aria-label="Открыть меню")
+                    span.toggle-menu-btn__line
+
+                .menu-wrap
+                    ul.menu.list-reset
+                        li.menu__item.menu__item_link-to_main
+                            a.menu__link(href="/")
+                                | Главная
+                        li.menu__item
+                            a.menu__link(href="#")
+                                | Трансляции
+                        li.menu__item
+                            a.menu__link(href="#")
+                                | Подкасты
+                        li.menu__item
+                            a.menu__link(href="#")
+                                | Видео
+                        li.menu__item.menu__item_link-to_news
+                            a.menu__link(href="#")
+                                | Новости
+                            ul.menu.menu_t_submenu.list-reset
+                                li.menu__item
+                                    a.menu__link(href="#")
+                                        | Новости спорта
+                                li.menu__item
+                                    a.menu__link(href="#")
+                                        | Новости города
+                        li.menu__item
+                            a.menu__link(href="#")
+                                | Акции
+                        li.menu__item
+                            a.menu__link(href="#")
+                                | Контакты
+                        li.menu__item
+                            a.menu__link(href="#")
+                                | О нас
+
+                    .contact-us
+                        .contact-us__title
+                            | Связаться с нами:
+                        .contact-us__inner
+                            a.contact-us__link(href="tel:+74959997755" aria-label="Позвонить в эфир")
+                                +svg("phone")(class="contact-us__icon" width="26" height="26")
+                            a.contact-us__link(href="mailto:info@radiozenit.ru" aria-label="Написать нам на почту")
+                                +svg("mail")(class="contact-us__icon" width="92" height="20")
+
+            a(href="/")
+                +logo(class="page-header__logo")
+
+            +social-links(class="page-header__socials")
+
+            a.call-us-btn.page-header__btn(href="https://wa.me/79215700897" target="_blank" rel="noopener" aria-label="Позвонить в эфир")
+                +svg("whatsapp")(class="call-us-btn__icon" width="30" height="30")
+
+            button.toggle-theme-btn.page-header__btn.page-header__btn_hidden(type="button" aria-label="Переключиться на светлую тему")
+                +svg("sun")(class="toggle-theme-btn__icon toggle-theme-btn__icon_t_light" width="25" height="25")
+                +svg("moon")(class="toggle-theme-btn__icon" width="25" height="25")
+
+    .page-header__row.page-header__row_t_player
+        .container.page-header__inner
+            .main-player
+                +play-btn({ iconClass: "main-player__play-icon" })(class="play-btn_rounded main-player__btn main-player__play-btn play")
+
+                .main-player__inner
+                    .main-player__text-line.main-player__text-line_t_title
+                        span.main-player__text.main-player__text_t_title
+                            | 89.7 FM 
+                        span.main-player__text
+                            | Санкт-Петербург
+                    .main-player__text-line.main-player__text-line_ticking
+                        span.main-player__text.main-player__text_t_title
+                            | НОЧНЫЕ СНАЙПЕРЫ НОЧНЫЕ СНАЙПЕРЫ 
+                        | - 
+                        span.main-player__text
+                            | Асфальт Асфальт Асфальт Асфальт
+                    #js-podcast-titles.main-player__text-line(style="display:none")
+
+                .volume-control.main-player__volume
+                    button.volume-control__mute-btn.icon.icon-volume.left(aria-label="Выключить/включить звук")
+                    .volume-control__inner
+                        .progress-bar
+                            .progress-bar__back(style="width: 20%")
+                            .progress-bar__thumb(style="margin-left:20%")
+
+                button.main-player__btn.main-player__expand-btn(type="button" aria-label="Показать плейлист")
+                    +svg("arrow")(class="main-player__expand-icon" width="22" height="13")
+
+            button.page-header__back-to-live(type="button")
+                span.page-header__back-to-live-text
+                    | вернуться к прямому эфиру
+                span.page-header__back-to-live-text.page-header__back-to-live-text_for_desktop
+                    | прямой эфир
+
+            .page-header__app-links
+                a.page-header__btn(href="https://play.google.com/store/apps/details?id=com.indygomobi.zenit" target="_blank" rel="noopener")
+                    +svg("android")(class="" width="23" height="26")
+                a.page-header__btn(href="https://itunes.apple.com/ru/app/radio-zenit/id1160707778?l=en&mt=8" target="_blank" rel="noopener")
+                    +svg("apple")(class="" width="23" height="27")
+
+.main-playlist-wrap
+    .main-playlist-wrap__outer
+        .main-playlist-wrap__inner
+            .main-playlist.container#main-playlist
+                .playlist-block
+                    span.playlist-block__title
+                        | Далее:
+                    .playlist-track
+                        img.playlist-track__cover(src="img/cover-mini.jpg" width="50" height="50" alt="alt")
+                        .playlist-track__inner
+                            .playlist-track__title
+                                | Slade
+                            .playlist-track__name
+                                | Run runaway
+
+                .playlist-block.main-playlist__live-block
+                    span.playlist-block__title
+                        | Сейчас в эфире:
+                    .playlist-track.playlist-track_s_lg
+                        img.playlist-track__cover(src="img/album-cover-placeholder.svg" width="185" height="185" alt="alt")
+                        .playlist-track__inner
+                            .playlist-track__title
+                                | Ночные снайперы
+                            .playlist-track__name
+                                | Асфальт
+
+                .main-playlist__title
+                    | Плейлист
+
+                ul.playlist.playlist_view_main.list-reset
+                    -
+                        var tracks = [{
+                            time: "12:00",
+                            title: "Кино",
+                            name: "Место для шага вперед",
+                        }, {
+                            time: "11:55",
+                            title: "HIM",
+                            name: "Wicked game",
+                        }, {
+                            time: "11:51",
+                            title: "Чичерина",
+                            name: "Блюдца",
+                        }, {
+                            time: "11:48",
+                            title: "Red Hot Chili Peppers",
+                            name: "Under The Bridge",
+                        }, {
+                            time: "11:45",
+                            title: "AC/DC",
+                            name: "You shook me all night long",
+                        }, {
+                            time: "11:41",
+                            title: "Аквариум",
+                            name: "Темный как ночь",
+                        }, {
+                            time: "11:35",
+                            title: "Кино",
+                            name: "Место для шага вперед",
+                        }]
+                    each track in tracks
+                        li.playlist__item
+                            +player({ playerClass: "player_view_main-playlist", trackData: track })
+
+                a.main-playlist__full-link(href="#")
+                    | Полный плейлист

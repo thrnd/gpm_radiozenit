@@ -1,0 +1,42 @@
+extends ./components/_base
+
+append vars
+    - pageTitle = "Видео"
+
+append content
+    .container.container_page_inner
+        +breadcrumps({
+            items: ["Видео"]
+        })
+
+        h1.title
+            | Видео
+
+        .video-list
+            -
+                const videos = [{
+                    title: "Спортивная столица",
+                    desc: "В гостях Тамара Москвина"
+                }, {
+                    title: "Видео"
+                }, {
+                    title: "Видосик с очень длинным названием аж в две строчки",
+                    desc: "В гостях Тамара Москвина плюс еще очень длинное описание для видосика"
+                }, {
+                    title: "Спортивная столица",
+                    desc: "В гостях Тамара Москвина"
+                }]
+                let n = 0
+            while n < videos.length
+                .video-list__item
+                    +video({
+                        img: `video-${n + 1}.jpg`,
+                        title: videos[n].title,
+                        desc: videos[n].desc,
+                    })
+                - n++
+
+        .section
+            +pagination
+
+append scripts

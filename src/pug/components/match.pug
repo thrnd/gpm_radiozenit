@@ -1,0 +1,17 @@
+mixin match({ mixin = "", title, team1, team2, date })
+    article.match(class=mixin)
+        h2.title.match__title
+            = title
+        .match__inner
+            .club.match__club
+                img.club__logo(src=`img/${team1.img}` width="75" height="75" alt=`Логотип команды ${team1.name}`)
+                .title.club__title
+                    = team1.name
+            span.visually-hidden
+                | против
+            .club.match__club.match__club_t_guest
+                img.club__logo(src=`img/${team2.img}` width="75" height="75" alt=`Логотип команды ${team2.name}`)
+                .title.club__title
+                    = team2.name
+            .match__date
+                | !{date}

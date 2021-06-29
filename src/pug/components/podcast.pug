@@ -1,0 +1,13 @@
+mixin podcast({ title, img, date, isNew, isProgram })
+    a.podcast.labelable(href="#")
+        if isNew
+            span.labelable__label.labelable__label_s_sm
+                | новое
+        if !isProgram
+            +svg("play")(class="podcast__icon" width="22" height="19")
+        .podcast__img(style=`background-image: url(img/${img})`)
+        .podcast__title(class=`${isProgram ? "podcast__title_t_program" : ""}`)
+            = title
+        if !isProgram
+            .podcast__date
+                | 12 января 2021 18:01

@@ -1,0 +1,82 @@
+extends ./components/_base
+
+append vars
+    - pageTitle = "Новость детальная"
+
+append content
+    .container.container_page_inner
+        +breadcrumps({
+            isDetailedPage: true,
+            items: ["Новости", "Новости спорта"]
+        })
+
+        article.article
+            header.article__header
+                h1.title.title_s_reduced.article__title
+                    | ЧМ-2021 по хоккею пройдут при пустых трибунах
+                .article__date
+                    | 12 января 2021 18:01
+                .article__img-wrap
+                    img.article__img(src="img/news-1.jpg" alt="asd")
+                    .article__img-source
+                        | Источник фото: super-duper-stock-photos.com
+
+            .article__inner
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sit amet ipsum porttitor, auctor tellus et, interdum dolor. Sed viverra diam at velit malesuada, eu feugiat dolor consequat. Pellentesque id urna sit amet ipsum venenatis aliquam. Quisque odio ante, condimentum a condimentum ut, aliquam eu mauris. Suspendisse enim ex, <a href="#">euismod</a> et viverra quis, viverra et justo. Nulla ultrices tempor mauris, eu iaculis tortor sodales eu. Integ er vel pulvinar diam. Proin elementum, mauris in cursus egestas, lorem dolor feugiat magna, lobortis molestie nisl nunc a nunc.
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sit amet ipsum porttitor, auctor tellus et, interdum dolor. Sed viverra diam at velit malesuada, eu feugiat dolor consequat. Pellentesque id urna sit amet ipsum venenatis aliquam. Quisque odio ante, condimentum a condimentum ut, aliquam eu mauris. Suspendisse enim ex, euismod et viverra quis, viverra et justo. Nulla ultrices tempor mauris, eu iaculis tortor sodales eu. Integer vel pulvinar diam. Proin elementum, mauris in cursus egestas, lorem dolor feugiat magna, lobortis molestie nisl nunc a nunc.
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sit amet ipsum porttitor, auctor tellus et, interdum dolor. Sed viverra diam at velit malesuada, eu feugiat dolor consequat. Pellentesque id urna sit amet ipsum venenatis aliquam. Quisque odio ante, condimentum a condimentum ut, aliquam eu mauris. Suspendisse enim ex, euismod et viverra quis, viverra et justo. Nulla ultrices tempor mauris, eu iaculis tortor sodales eu. Integer vel pulvinar diam. Proin elementum, mauris in cursus egestas, lorem dolor feugiat magna, lobortis molestie nisl nunc a nunc.
+
+        .article-nav
+            a.article-nav__link(href="#")
+                | « Предыдущая новость
+            a.article-nav__link.article-nav__link_t_next(href="#")
+                | Следующая новость »
+
+        .section.news.news_t_similar
+            h2.title.title_s_reduced.news__title
+                | Другие новости:
+            .news__inner
+                -
+                    var news = [{
+                        title: "«Зенит» разгромил «Ахмат»",
+                        date: "12 января 2021 18:01",
+                        isNew: true
+                    }, {
+                        title: "Женский «Зенит» выиграл первый  матч сезона",
+                        date: "12 января 2021 18:01",
+                        isNew: true
+                    }, {
+                        title: "ЧМ-2021 по хоккею пройдут при пустых трибунах",
+                        date: "12 января 2021 18:01"
+                    }, {
+                        title: "Туомас Саммелвуо рассказл о состоянии Ореола Камехо",
+                        date: "12 января 2021 18:01"
+                    }, {
+                        title: "СКА продлил контракт с Оскаром Фантенбергом",
+                        date: "12 января 2021 18:01"
+                    }, {
+                        title: "СКА продлил контракт с Оскаром Фантенбергом",
+                        date: "12 января 2021 18:01"
+                    }, {
+                        title: "СКА продлил контракт с Оскаром Фантенбергом",
+                        date: "12 января 2021 18:01"
+                    }, {
+                        title: "СКА продлил контракт с Оскаром Фантенбергом",
+                        date: "12 января 2021 18:01"
+                    }, {
+                        title: "Женский «Зенит» выиграл первый  матч сезона",
+                        date: "12 января 2021 18:01",
+                        isNew: true
+                    }]
+                    var n = 0
+                while n < news.length
+                    +news-preview({
+                        noImg: n === 2,
+                        img: `news-${n + 1}.jpg`,
+                        title: news[n].title,
+                        date: news[n].date,
+                        isNew: news[n].isNew
+                    })
+                    - n++
+
+append scripts

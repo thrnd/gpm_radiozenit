@@ -1,0 +1,248 @@
+extends ./components/_base
+
+append vars
+    - pageTitle = "Главная"
+
+append content
+    .index-banner.swiper-container
+        .swiper-wrapper
+            - var n = 0
+            while n < 4
+                .swiper-slide
+                    a(href="#")
+                        +pic([{
+                            name: "banner--s--sm",
+                            ext: "jpg",
+                            media: "(max-width: 375px)",
+                            alt: "banner",
+                            isDefault: true
+                        }, {
+                            name: "banner",
+                            ext: "jpg",
+                            media: "(min-width: 992px)",
+                            alt: `alt text ${n++}`
+                        }])(class="index-banner__img" width="375" height="200")
+        .index-banner__pagination
+
+    .index-bg-pattern
+        .index-grid
+            .section.section_page_index.index-live-block.index-grid__item
+                h1.title.title_page_index.title_underlined
+                        | Прямые трансляции
+                .index-live-block__inner
+                    +match({
+                        mixin: "match_page_index index-live-block__match",
+                        title: "Тинькофф Российская Премьер-Лига",
+                        team1: {
+                            img: "cska-logo.png",
+                            name: "ЦСКА Москва"
+                        },
+                        team2: {
+                            img: "zenit-logo.png",
+                            name: "Зенит"
+                        },
+                        date: "20:00<br>Воскресенье<br>17.03"
+                    })
+                    a.index-live-block__full-schedule(href="#")
+                        | Полное расписание трансляций
+
+            .section.index-podcast-block.section_page_index.section_bg-filled.section_no-bot-margin.index-grid__item.index-grid__item_s_big
+                .index-podcast-block__inner
+                    h2.title.title_page_index.title_underlined
+                        | Подкасты
+                .podcast-slider.swiper-container
+                    ul.podcast-list.podcast-list_t_slider.list-reset.swiper-wrapper
+                        -
+                            var podcasts = [{
+                                title: "Тренерский штаб",
+                                date: "",
+                                isNew: true
+                            }, {
+                                title: "Руки вверх",
+                                date: ""
+                            }, {
+                                title: "Высокие",
+                                date: ""
+                            }, {
+                                title: "Супердлинное название для подкаста",
+                                date: ""
+                            }, {
+                                title: "Зенитный расчет",
+                                date: ""
+                            }]
+                            var n = 0
+                        while n < podcasts.length
+                            li.podcast-list__item.swiper-slide
+                                +podcast({
+                                    title: podcasts[n].title,
+                                    img: `podcast-${n + 1}.png`,
+                                    date: podcasts[n].date,
+                                    isNew: podcasts[n].isNew
+                                })
+                                - n++
+
+    .section.section_page_index.section_no-bot-margin.index-video-block
+        .container
+            h2.title.title_page_index.index-video-block__title
+                | Видео
+
+        a.index-video-block__main-link(href="#")
+            img.index-video-block__main-preview(src="img/video-1.jpg" alt="")
+
+        .index-video-slider.swiper-container
+            ul.index-video-list.list-reset.swiper-wrapper
+                -
+                    var videos = [{
+                        title: "Спортивная Столица",
+                        desc: "В гостях Тамара Москвина"
+                    }, {
+                        title: "Очень длинное название видео про очень интересную новость",
+                        desc: "очень длинное описание очень длинного и интересного видео-ролика про очень интересное событие"
+                    }, {
+                        title: "Видео",
+                        desc: "В гостях Тамара Москвина"
+                    }]
+                    var n = 0
+                while n < videos.length
+                    li.index-video-list__item.swiper-slide(class=`${n === 0 ? "index-video-list__item_view_main" : ""}`)
+                        +index-video({
+                            img: `video-${n + 1}.jpg`,
+                            title: videos[n].title,
+                            desc: videos[n].desc,
+                            date: videos[n].date,
+                            isMain: n === 0
+                        })
+                        - n++
+            .index-video-slider__pagination
+
+    .index-bg-pattern
+        .index-grid
+            .container.news.section.section_page_index.section_index-news.section_no-bot-margin.index-grid__item.index-grid__item_s_big
+                h2.title.title_page_index.title_underlined
+                    | Новости
+                +tags({
+                    mixin: "tags_page_index",
+                    asBtn: true,
+                    data: [{
+                        text: "Новости спорта",
+                        isActive: true,
+                        tab: 1,
+                    }, {
+                        text: "Новости города",
+                        tab: 2,
+                    }]
+                })
+
+                .news__inner.news__inner_page_index.news__inner_visible(data-tab="1")
+                    -
+                        var news = [{
+                            title: "«Зенит» разгромил «Ахмат»",
+                            date: "12 января 2021 18:01",
+                            isNew: true
+                        }, {
+                            title: "Женский «Зенит» выиграл первый  матч сезона",
+                            date: "12 января 2021 18:01",
+                            isNew: true
+                        }, {
+                            title: "ЧМ-2021 по хоккею пройдут при пустых трибунах",
+                            date: "12 января 2021 18:01"
+                        }, {
+                            title: "Туомас Саммелвуо рассказл о состоянии Ореола Камехо",
+                            date: "12 января 2021 18:01"
+                        }, {
+                            title: "СКА продлил контракт с Оскаром Фантенбергом",
+                            date: "12 января 2021 18:01"
+                        }]
+                        var n = 0
+                    while n < news.length
+                        +news-preview({
+                            noImg: n === 2,
+                            img: `news-${n + 1}.jpg`,
+                            title: news[n].title,
+                            date: news[n].date,
+                            isNew: news[n].isNew,
+                            isIndexPage: true
+                        })
+                        - n++
+                    .news__item.news__item_page_index
+                        .news-preview.news-preview_page_index.news-preview_t_more-link(style="background-image: url(img/news__more-link.jpg)")
+                            .news-preview__inner
+                                a.news-preview__link(href="#")
+                                    | Больше<br>новостей
+
+                .news__inner.news__inner_page_index(data-tab="2")
+                    -
+                        var news = [{
+                            title: "«Зенит» разгромил «Ахмат»",
+                            date: "12 января 2021 18:01",
+                            isNew: true
+                        }, {
+                            title: "Женский «Зенит» выиграл первый  матч сезона",
+                            date: "12 января 2021 18:01",
+                            isNew: true
+                        }, {
+                            title: "ЧМ-2021 по хоккею пройдут при пустых трибунах",
+                            date: "12 января 2021 18:01"
+                        }, {
+                            title: "Туомас Саммелвуо рассказл о состоянии Ореола Камехо",
+                            date: "12 января 2021 18:01"
+                        }, {
+                            title: "СКА продлил контракт с Оскаром Фантенбергом",
+                            date: "12 января 2021 18:01"
+                        }]
+                        var n = news.length - 1
+                    while n >= 0
+                        +news-preview({
+                            noImg: n === 2,
+                            img: `news-${n + 1}.jpg`,
+                            title: news[n].title,
+                            date: news[n].date,
+                            isNew: news[n].isNew,
+                            isIndexPage: true
+                        })
+                        - n--
+                    .news__item.news__item_page_index
+                        .news-preview.news-preview_page_index.news-preview_t_more-link(style="background-image: url(img/news__more-link.jpg)")
+                            .news-preview__inner
+                                a.news-preview__link(href="#")
+                                    | Больше<br>новостей
+
+            .container.index-programs.section.section_page_index.index-grid__item
+                h2.title.title_page_index.title_underlined
+                    | Программы
+                a.index-programs__link(href="#")
+                    | Все программы
+                ul.program-list.list-reset.index-programs__list
+                    -
+                        const programs = [{
+                            title: "Вести с полей",
+                            update: "12 января 2021 18:01"
+                        }, {
+                            title: "Подкаст",
+                            update: "1 мая 2021 18:01"
+                        }, {
+                            title: "Вечер в зените",
+                            update: "12 ферваля 2021 18:01"
+                        }, {
+                            title: "Высокие",
+                            update: "12 марта 2021 18:01"
+                        }, {
+                            title: "Чемпионский раунд for sure",
+                            update: "12 октября 2021 01:01"
+                        }, {
+                            title: "Руки вверх а ну-ка быстро",
+                            update: "12 сентября 2021 18:01"
+                        }]
+                        var n = 0
+                    while n < programs.length
+                        li.program.program-list__item(style=`background-image: url(img/podcast-${n + 1}.png)`)
+                            .program__inner
+                                h3.program__title
+                                    a.program__link(href="#")
+                                        = programs[n].title
+                        - n++
+
+    append scripts
+        script(src="js/swiper.5.2.0.min.js")
+        script.
+            var indexBannerTitles = ["Заголовок из нескольких слов", "Заголовок", "Очень длинный заголовок ну прям вообще", "Новость"];

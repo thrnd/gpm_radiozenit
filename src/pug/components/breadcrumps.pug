@@ -1,0 +1,12 @@
+mixin breadcrumps({ isDetailedPage, items })
+    .breadcrumps(class=`${isDetailedPage ? "breadcrumps_page_detailed" : ""}`)
+        .breadcrumps__item
+            a.breadcrumps__link(href="/")
+                | Главная
+        - const len = items.length
+        - let n = 0
+        while n < len
+            .breadcrumps__item
+                a.breadcrumps__link(href="#")
+                    = items[n]
+            - n++

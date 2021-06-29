@@ -1,0 +1,16 @@
+mixin news-preview({ title, noImg, img, date, isNew, isIndexPage, isNewsPage })
+    .news__item(class=`${isIndexPage ? "news__item_page_index" : ""} ${isNewsPage ? "news__item_page_news" : ""}`)
+        .news-preview.labelable(class=`${isIndexPage ? "news-preview_page_index" : ""}`)
+            if noImg
+                +svg("news-ph")(class="news-preview__placeholder" width="36" height="34")
+            else
+                img.news-preview__img(loading="lazy" src=`img/${img}` alt=title)
+            .news-preview__inner(class=`${noImg ? "news-preview__inner_no-bg" : ""}`)
+                h3.news-preview__title
+                    a.news-preview__link(href="#")
+                        = title
+                if isNew
+                    span.labelable__label
+                        | Новое
+                p.news-preview__publish-time
+                    = date

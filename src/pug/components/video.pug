@@ -1,0 +1,14 @@
+mixin video({ img, title, desc })
+    .video
+        .video__img-wrap
+            img.video__img(src=`img/${img}` alt=title)
+            //- +play-btn({ isIcon: true })(class="play-btn_rounded video__play-icon")
+        .video__inner
+            h2.video__title
+                a.video__link(href="#")
+                    = title
+            if desc
+                p.video__desc
+                    = desc
+            .video__date
+                | 12 января 2021 18:01

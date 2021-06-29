@@ -1,0 +1,80 @@
+extends ./components/_base
+
+append vars
+    - pageTitle = "Подкасты"
+
+append content
+    .container.container_page_inner
+        +breadcrumps({
+            items: ["Подкасты"]
+        })
+
+        h2.title.title_s_reduced
+            | Последние выпуски
+
+        .section.section_no-bot-margin.podcast-slider-wrapper
+            .podcast-slider.swiper-container
+                ul.podcast-list.podcast-list_t_slider.list-reset.swiper-wrapper
+                    -
+                        var podcasts = [{
+                            title: "Тренерский штаб",
+                            date: "",
+                            isNew: true
+                        }, {
+                            title: "Руки вверх",
+                            date: ""
+                        }, {
+                            title: "Высокие",
+                            date: ""
+                        }, {
+                            title: "Супердлинное название для подкаста",
+                            date: ""
+                        }, {
+                            title: "Зенитный расчет",
+                            date: ""
+                        }, {
+                            title: "Зенитный расчет",
+                            date: ""
+                        }, {
+                            title: "Зенитный расчет",
+                            date: ""
+                        }]
+                        var n = 0
+                    while n < podcasts.length
+                        li.podcast-list__item.swiper-slide
+                            +podcast({
+                                title: podcasts[n].title,
+                                img: `podcast-${n + 1}.png`,
+                                date: podcasts[n].date,
+                                isNew: podcasts[n].isNew
+                            })
+                            - n ++
+
+        .section
+            h1.title.title_s_reduced
+                | Программы
+
+            ul.podcast-list.list-reset
+                -
+                    var programs = [
+                        "Тренерский штаб",
+                        "Руки вверх",
+                        "Высокие",
+                        "Супердлинное название для подкаста",
+                        "Зенитный расчет",
+                        "Зенитный расчет",
+                        "Зенитный расчет",
+                    ]
+                    var n = 0
+                while n < programs.length
+                    li.podcast-list__item.podcast-list__item_t_program
+                        +podcast({
+                            title: programs[n],
+                            img: `podcast-${n + 1}.png`,
+                            isProgram: true
+                        })
+                        - n ++
+
+append scripts
+    script(src="js/swiper.5.2.0.min.js")
+    script(src="js/podcasts.min.js")

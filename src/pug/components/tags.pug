@@ -1,0 +1,10 @@
+mixin tags({ mixin = "", asBtn, data })
+    .tags(class=`${mixin}`)
+        each tag in data
+            .tags__item
+                if asBtn
+                    button.tags__btn(class=`${tag.isActive ? "tags__btn_active" : ""}` type="button" data-tab=tag.tab)
+                        = tag.text
+                else
+                    a.tags__btn(class=`${tag.isActive ? "tags__btn_active" : ""}` href="#")
+                        = tag.text

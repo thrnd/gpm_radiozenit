@@ -1,0 +1,17 @@
+mixin player({ playerClass = "", btnClass, btnOpts = {}, trackData, progressBar = false })
+    .player(class=`${playerClass}`)
+        .player__controls
+            +play-btn(btnOpts)(class=`player__play-btn ${btnClass}`)
+
+            if progressBar
+                .progress-bar.player__progressbar
+                    .progress-bar__back(style="width: 20%")
+
+            .player__time
+                = trackData.time
+
+        .player__inner
+            span.player__track-title
+                = trackData.title
+            span.player__track-name
+                = trackData.name

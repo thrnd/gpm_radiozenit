@@ -1,0 +1,8 @@
+mixin play-btn({ iconClass = "", largerIcon = false, isIcon } = {})
+    if isIcon
+        .play-btn.play.play-btn_role_icon&attributes(attributes)
+            +svg("play")(class=`play-btn__icon play-btn__icon_t_play ${iconClass}` width="23" height="23")
+    else
+        button.play-btn.play(type="button" aria-label="Начать воспроизведение")&attributes(attributes)
+            +svg("play")(class=`play-btn__icon play-btn__icon_t_play${largerIcon ? " play-btn__icon_s_lg" : ""} ${iconClass}` width="23" height="23")
+            +svg("pause")(class=`play-btn__icon${largerIcon ? " play-btn__icon_s_lg" : ""}` width="23" height="23")

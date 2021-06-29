@@ -1,0 +1,88 @@
+extends ./components/_base
+
+append vars
+    - pageTitle = "Подкаст детальная страница"
+
+append content
+    .container.container_page_inner
+        +breadcrumps({
+            isDetailedPage: true,
+            items: ["Подкасты", "Программы"]
+        })
+
+        article.program-article
+            header.program-article__header
+                h1.title.title_s_reduced.program-article__title
+                    | Тренерский штаб
+                img.program-article__img(src="img/podcast-1.png" alt="Обложка программы &quot;Тренерский штаб&quot;")
+                p.program-article__desc
+                    | Всё самое важное с брифингов Сергея Семака и его оппонентов в нашем «Тренерском штабе». Выделяем главные слова о матчах, игроках и планах тренеров.
+                button.js-podcast-play.listen-btn.program-article__listen-btn(type="button")
+                    +svg("play")(class="listen-btn__icon" width="20" height="18")
+                    span.listen-btn__text
+                        | Слушать
+
+            h2.title.title_s_reduced
+                | Выпуски
+
+            ul.playlist.list-reset
+                -
+                    var tracks = [{
+                        title: "26 января 2021",
+                        name: "В гостях: Василий Костровский, координатор юношеских команд Академии \"Зенита\"",
+                        time: "11:41",
+                    }, {
+                        title: "19 января 2021",
+                        name: "В гостях: Александр Куртеян, экс-игрок \"Зенита\", тренер",
+                        time: "11:41",
+                    }, {
+                        title: "12 января 2021",
+                        name: "В гостях: Владислав Радимов, главный тренер \"Зенита\"-2",
+                        time: "11:41",
+                    }, {
+                        title: "12 января 2021",
+                        name: "В гостях: Владислав Радимов, главный тренер \"Зенита\"-2 и еще какой-то неизвестный пепег с длинным послужным списком из пепежных заслуг",
+                        time: "11:41",
+                    }]
+                    var n = 0
+                while n < tracks.length
+                    li.playlist__item
+                        +player({
+                            playerClass: "player_view_podcast program-article__player",
+                            btnClass: "play-btn_rounded program-article__play-btn js-podcast-play",
+                            btnOpts: { largerIcon: true },
+                            trackData: tracks[n],
+                            progressBar: true,
+                        })
+                        - n ++
+
+append scripts
+    script.
+        var programInfo = {
+            id: 4,
+            playerID: "zenit",
+            title: "Тренерский штаб",
+            desc: "Всё самое важное с брифингов Сергея Семака и его оппонентов в нашем «Тренерском штабе». Выделяем главные слова о матчах, игроках и планах тренеров.",
+            img: "http://cdn2.radiozenit.ru/proxy/vardata/modules/dynalenta/files/35/2021/05/21/78d302742eece5c8c3462c262355c8e4.png?w=180&h=180&pos=center&t=1621862636",
+            podcasts: [{
+                title: "26 января 2021",
+                audio: "/test.mp3",
+                desc: "В гостях: Василий Костровский, координатор юношеских команд Академии \"Зенита\"",
+                broadcastID: "podcast-1",
+            }, {
+                title: "19 января 2021",
+                audio: "/test.mp3",
+                desc: "В гостях: Александр Куртеян, экс-игрок \"Зенита\", тренер",
+                broadcastID: "podcast-1",
+            }, {
+                title: "12 января 2021",
+                audio: "/test.mp3",
+                desc: "В гостях: Владислав Радимов, главный тренер \"Зенита\"-2",
+                broadcastID: "podcast-1",
+            }, {
+                title: "12 января 2021",
+                audio: "/test.mp3",
+                desc: "В гостях: Владислав Радимов, главный тренер \"Зенита\"-2 и еще какой-то неизвестный пепег с длинным послужным списком из пепежных заслуг",
+                broadcastID: "podcast-1",
+            }],
+        }

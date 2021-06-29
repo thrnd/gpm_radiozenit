@@ -1,0 +1,49 @@
+extends ./components/_base
+
+append vars
+    - pageTitle = "Предстоящие матчи"
+
+append content
+    .container.container_page_inner
+        +breadcrumps({
+            items: ["Трансляции"]
+        })
+
+        h2.title
+            | Предстоящие матчи
+
+        ul.match-list.list-reset
+            -
+                var matches = [{
+                    date: "20:00<br>Воскресенье<br>17.03",
+                }, {
+                    date: "20:00<br>Среда<br>17.03",
+                }, {
+                    date: "20:00<br>Воскресенье<br>17.03",
+                }, {
+                    date: "20:00<br>Вторник<br>17.03",
+                }, {
+                    date: "20:00<br>Суббота<br>17.03",
+                },]
+                var n = 0
+            while n < matches.length
+                li.match-list__item
+                    +match({
+                        mixin: "match_page_live",
+                        title: "Тинькофф Российская Премьер-Лига",
+                        team1: {
+                            img: "cska-logo.png",
+                            name: "ЦСКА Москва"
+                        },
+                        team2: {
+                            img: "zenit-logo.png",
+                            name: "Зенит"
+                        },
+                        date: matches[n].date
+                    })
+                    - n++
+
+        .section
+            +pagination
+
+append scripts

@@ -1,0 +1,72 @@
+footer.page-footer
+    .container.page-footer__inner
+        .page-footer__contacts.page-footer__col
+            p
+                | Прямой эфир: <wbr><a href="tel:+78123200897">+7 (812) 320-0-89.7</a>
+            p
+                | E-mail: <wbr><a href="mailto:news2@radiozenit.ru">news2@radiozenit.ru</a><br>Телефон/факс: <wbr><a href="tel:+78123200897">+7 (812) 321-88-44</a>
+            p
+                | Адрес: 197022, Санкт- Петербург, улица Академика Павлова, дом 5, литера В, БЦ River House, 3 этаж
+
+        .page-footer__col.page-footer__col_t_menu
+            ul.footer-menu.list-reset
+                li.footer-menu__item
+                    a.footer-menu__link(href="#")
+                        | Подкасты
+                li.footer-menu__item
+                    a.footer-menu__link(href="#")
+                        | Прямые трансляции
+                li.footer-menu__item
+                    a.footer-menu__link(href="#")
+                        | Видео
+                li.footer-menu__item
+                    a.footer-menu__link(href="#")
+                        | Новости
+                    ul.footer-submenu.list-reset
+                        li.footer-submenu__item
+                            a.footer-submenu__link(href="#")
+                                | Новости спорта
+                        li.footer-submenu__item
+                            a.footer-submenu__link(href="#")
+                                | Новости города
+                        li.footer-submenu__item
+                            a.footer-submenu__link(href="#")
+                                | Новости города
+                        li.footer-submenu__item
+                            a.footer-submenu__link(href="#")
+                                | Новости города
+                li.footer-menu__item
+                    a.footer-menu__link(href="#")
+                        | Акции
+                li.footer-menu__item
+                    a.footer-menu__link(href="#")
+                        | Контакты
+                li.footer-menu__item
+                    a.footer-menu__link(href="#")
+                        | О нас
+                li.footer-menu__item
+                    span.visually-hidden
+                        | наше приложение
+                    ul.footer-submenu.list-reset
+                        li.footer-submenu__item
+                            a.footer-submenu__link(href="#")
+                                | Приложение для iOS
+                        li.footer-submenu__item
+                            a.footer-submenu__link(href="#")
+                                | Приложение для Android
+                li.footer-menu__item.footer-menu__item_t_socials
+                    span.visually-hidden
+                        | мы в соцсетях
+                    +social-links(class="page-footer__socials")
+
+        .page-footer__col.page-footer__col_t_copy
+            .page-footer__signs-wrap
+                +svg("zenit-sign")(class="page-footer__sign" width="65" height="45")
+                +svg("ska-sign")(class="page-footer__sign" width="46" height="59")
+
+            .page-footer__copy
+                | © 2021<br>
+                | Радио «Зенит»<br>
+                | Все права защищены.<br>
+                a(href="/privacy-policy")
+                    | Политика конфиденциальности
