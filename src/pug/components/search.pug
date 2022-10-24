@@ -1,0 +1,9 @@
+mixin search({ text = "" } = {})
+    form.search(action="#" method="GET")&attributes(attributes)
+        label.label.search__label
+            span.visually-hidden
+                | Поиск по сайту
+            input.input.label__input.search__input(class=`${text !== "" ? "label__input_filled" : ""}` type="text" name="q" value=text placeholder="Поиск по сайту")
+
+        button.search__submit(type="submit" aria-label="Искать")
+            +svg("search")(class="search__icon" width="20" height="20")

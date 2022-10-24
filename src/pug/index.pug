@@ -33,6 +33,7 @@ append content
                     +match({
                         mixin: "match_page_index index-live-block__match",
                         title: "Тинькофф Российская Премьер-Лига",
+                        place: "«Ростов Арена», Ростов",
                         team1: {
                             img: "cska-logo.png",
                             name: "ЦСКА Москва"
@@ -86,9 +87,6 @@ append content
             h2.title.title_page_index.index-video-block__title
                 | Видео
 
-        a.index-video-block__main-link(href="#")
-            img.index-video-block__main-preview(src="img/video-1.jpg" alt="")
-
         .index-video-slider.swiper-container
             ul.index-video-list.list-reset.swiper-wrapper
                 -
@@ -100,6 +98,9 @@ append content
                         desc: "очень длинное описание очень длинного и интересного видео-ролика про очень интересное событие"
                     }, {
                         title: "Видео",
+                        desc: "В гостях Тамара Москвина"
+                    }, {
+                        title: "Спортивная Столица",
                         desc: "В гостях Тамара Москвина"
                     }]
                     var n = 0

@@ -1,17 +1,36 @@
-mixin match({ mixin = "", title, team1, team2, date })
-    article.match(class=mixin)
-        h2.title.match__title
-            = title
-        .match__inner
+mixin match({ mixin = "", title, place = "", team1, team2, date, buyLink = false, isLivePage = false, score = "", pastDate = "" })
+    article.match(class=`${mixin}${score ? " match_past" : ""}`)
+        .match__header
+            h2.title.match__title
+                = title
+            if place !== ""
+                .match__place
+                    = place
+
+        .match__content
+            .match__date
+                | !{date}
+
             .club.match__club
                 img.club__logo(src=`img/${team1.img}` width="75" height="75" alt=`Логотип команды ${team1.name}`)
                 .title.club__title
                     = team1.name
-            span.visually-hidden
-                | против
+
+            if score
+                .match__inner
+                    .match__past-date
+                        | !{pastDate}
+                    .match__score
+                        = score
+            else 
+                span.visually-hidden
+                    | против
+
             .club.match__club.match__club_t_guest
                 img.club__logo(src=`img/${team2.img}` width="75" height="75" alt=`Логотип команды ${team2.name}`)
                 .title.club__title
                     = team2.name
-            .match__date
-                | !{date}
+
+        if buyLink
+            a.match__buy-link(href="#")
+                | Купить билеты

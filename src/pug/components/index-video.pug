@@ -2,10 +2,10 @@ mixin index-video({ img, title, desc, date, isMain })
     .index-video(class=`${isMain ? "index-video_view_main" : ""}`)
         img.index-video__img(src=`img/${img}` alt=title)
         .index-video__content
-            +play-btn({ isIcon: true })(class="index-video__play-icon play-btn_rounded")
             h3.title.index-video__title
                 a.index-video__link(href="#")
                     = title
             p.index-video__desc
                 = desc
-                <br>31.12.2021
+            .index-video__date
+                | 31.12.2021

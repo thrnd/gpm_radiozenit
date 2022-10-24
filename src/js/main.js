@@ -3,6 +3,9 @@ var RadioZenit = RadioZenit || {
     indexPageAn:    "index",
     programPageAn:  "program",
     aboutPageAn:    "about",
+    actionPageAn:   "actions",
+    historyPageAn:  "onair-history",
+    livePageAn:     "live",
 };
 
 RadioZenit.resizeHandlers = RadioZenit.resizeHandlers || {};
@@ -21,17 +24,11 @@ RadioZenit.initCommon = () => {
         const menu = document.querySelector(".menu-wrap");
         const menuParent = menu.closest(".page-header__menu");
 
-        // при клике на пункт меню в мобильном разрешении нужно закрыть меню и плейлист
-        // ловим на фазе погружения, потому что в противном случае событие не срабатывает
-        // видимо, какой-то конфликт с либой MPAjax
-        document.addEventListener("click", (event) => {
-            const menuLink = event.target.closest(".menu__link");
-
-            if (viewportWidth > 991 || menuLink === null) return;
-
-            toggleMenu(false);
+        // при переходе на другую страницу, скрываем меню и плейлист
+        History.Adapter.bind(window, 'statechange', () => {
             togglePlaylist(false);
-        }, true);
+            toggleMenu(false);
+        });
 
         // по умолчанию меню скрыто через display: none
         // для анимации нужно сначала его показать через display: block/flex
@@ -94,11 +91,19 @@ RadioZenit.initCommon = () => {
         const PLAYLIST_ANIMATION_CLASSNAME =    "main-playlist-wrap_appeared";
 
         const header = document.querySelector(".page-header");
+        const logo = header.querySelector(".js-logo");
         setHeaderHeight();
 
         // показать/скрыть плейлист плеера
         document.addEventListener("click", (event) => {
             const { target } = event;
+
+            // проверяем - если это прогресс-бар то выходим
+            if (
+                target.classList.contains(`progress-bar`) || 
+                target.classList.contains(`progress-bar__back`)
+            ) return false;
+
             const isTogglePlaylistBtn = target === togglePlaylistBtn;
             const isPlayerText = target.closest(".main-player__inner") !== null;
 
@@ -153,11 +158,14 @@ RadioZenit.initCommon = () => {
         }
 
         // при ресайзе на десктопные ширины, скрываем меню
+        // и пересчитываем высоту хедера (при любых ресайзах)
         window.addEventListener("resize", throttle(function() {
             viewportWidth = body.clientWidth;
 
+            setHeaderHeight();
+            toggleLogoToLight(viewportWidth <= 991 && root.classList.contains("light-theme"));
+
             if (viewportWidth > 991 && isMenuOpened) {
-                setHeaderHeight();
                 toggleMenu(false);
             }
         }, window, 200));
@@ -165,7 +173,7 @@ RadioZenit.initCommon = () => {
         // перерасчет высоты хедера
         // нужно для позиционирования плейлиста
         function setHeaderHeight() {
-            playlist.style.setProperty("--default-header-height", viewportWidth > 991 ? `${header.offsetHeight}px` : "");
+            body.style.setProperty("--default-header-height", viewportWidth > 991 ? `${header.offsetHeight}px` : "");
         }
 
         // переключение темы
@@ -177,7 +185,15 @@ RadioZenit.initCommon = () => {
 
             document.cookie = `tpl_theme=light${isLightTheme ? "" : "; max-age=0"}`;
             toggleThemeBtn.setAttribute("aria-label", `Переключиться на ${isLightTheme ? "темную" : "светлую"} тему`);
+
+            toggleLogoToLight(isLightTheme);
         });
+
+        function toggleLogoToLight(isLight) {
+            logo.src = viewportWidth < 991 && isLight
+                ? logo.dataset.light
+                : logo.dataset.dark;
+        }
 
         // при запуске подкаста, нужно заменить всплывающий плейлист
         // с истории эфира на список подкастов
@@ -185,6 +201,10 @@ RadioZenit.initCommon = () => {
         // на каждой кнопке .js-podcast-play должны быть следующие атрибуты:
         // data-program -       id программы, к которой относится подкаст
         // data-podcast-title - имя подкаста для подстановки его в главный плеер при запуске
+
+        // ловим на фазе погружения, потому что в случае, когда
+        // кнопка одновременно идет яаксом через .loadajax[data-href] обработчик не запускается
+        // видимо, какой-то конфликт с либой MPAjax
         document.addEventListener("click", (event) => {
             const playPodcastBtn = event.target.closest(".js-podcast-play");
 
@@ -230,9 +250,12 @@ RadioZenit.initCommon = () => {
 
             // ищем на странице скрытый элемент с заранее построенным плейлистом
             // для замены всплывающего плейлиста
+            // если такого нет - предполагаем, что подкаст был запущен не со страницы программы
+            // и он идет за всей нужной инфой для построения плейлиста ajax-запросом
+            const isBtnTriggeringAjax = playPodcastBtn.classList.contains("loadajax");
             const podcastPlaylistContent = document.getElementById("js-program-playlist");
 
-            if (podcastPlaylistContent === null) {
+            if (podcastPlaylistContent === null && !isBtnTriggeringAjax) {
                 console.error("Блок #js-program-playlist не найден, не могу заменить плейлист");
                 return;
             }
@@ -245,14 +268,16 @@ RadioZenit.initCommon = () => {
             const mainPlaylist = document.getElementById("js-main-playlist");
             const podcastPlaylist = document.getElementById("js-podcast-playlist");
 
-            podcastPlaylist.innerHTML = "";
-            podcastPlaylist.innerHTML = podcastPlaylistContent.innerHTML;
+            if (!isBtnTriggeringAjax) {
+                podcastPlaylist.innerHTML = "";
+                podcastPlaylist.innerHTML = podcastPlaylistContent.innerHTML;
+            }
             podcastPlaylist.style.display = "";
             mainPlaylist.style.display = "none";
 
             setTitlesTicker();
-        });
-
+        }, true);
+        
         // при воспроизведении сэмпла песни из истории эфира
         // показываем кнопку "обратно к эфиру"
 
@@ -286,8 +311,8 @@ RadioZenit.initCommon = () => {
             setTitlesTicker();
         });
 
-        // при воспроизведении подкаста
-        // показываем кнопку "обратно к эфиру"
+        // кнопку "вернуться к прямому эфиру" нужно показывать только в случае
+        // если в главном плеере играет подкаст
         const backToRadioBtn = document.querySelector(".page-header__back-to-live");
 
         backToRadioBtn.addEventListener("click", (event) => {
@@ -347,7 +372,10 @@ RadioZenit.initCommon = () => {
 
             const timeNode = newPlaylistItem.querySelector(".player__time");
             const titleNode = newPlaylistItem.querySelector(".player__track-title");
-            timeNode.textContent = startSongTimeString;
+
+            if (timeNode !== null) {
+                timeNode.textContent = startSongTimeString;
+            }
             titleNode.textContent = titleExecutorFull;
 
             // элемент с названием песни может быть не у всех треков
@@ -387,10 +415,10 @@ RadioZenit.initCommon = () => {
                         data-track-name="${titleTrack}"
                     >
                         <svg class="play-btn__icon play-btn__icon_t_play" width="23" height="23">
-                            <use xlink:href="/design/images/new-site--tmp/sprite.svg#play"></use>
+                            <use xlink:href="/design/images/site-design/icons/sprite.svg#play"></use>
                         </svg>
                         <svg class="play-btn__icon" width="23" height="23">
-                            <use xlink:href="/design/images/new-site--tmp/sprite.svg#pause"></use>
+                            <use xlink:href="/design/images/site-design/icons/sprite.svg#pause"></use>
                         </svg>
                     </button>
                 `
@@ -398,7 +426,7 @@ RadioZenit.initCommon = () => {
                 : `
                     <div class="play-btn play player__play-btn play-btn_disabled" title="трек не найден">
                         <svg class="play-btn__icon play-btn__icon_t_play " width="23" height="23">
-                            <use xlink:href="/design/images/new-site--tmp/sprite.svg#play"></use>
+                            <use xlink:href="/design/images/site-design/icons/sprite.svg#play"></use>
                         </svg>
                     </div>
                 `;
@@ -406,6 +434,104 @@ RadioZenit.initCommon = () => {
             playlist.prepend(newPlaylistItem);
 
             setTitlesTicker();
+        });
+
+        // общие обработчики для попапов
+
+        // показать попап
+        document.addEventListener("click", (event) => {
+            const popupBtn = event.target.closest(".popup-btn");
+
+            if (popupBtn === null) return;
+
+            togglePopup(popupBtn.dataset.popupTarget, true);
+            toggleBodyScrolling(true);
+        });
+
+        // закрыть попап
+        document.addEventListener("click", (event) => {
+            const { target } = event;
+            const isCloseBtnClick = target.closest(".popup__close") !== null;
+            const isPopupClick = target.classList.contains("popup");
+
+            if (!isCloseBtnClick && !isPopupClick) return;
+
+            const popup = target.closest(".popup");
+
+            togglePopup(popup, false);
+            toggleBodyScrolling(false);
+        });
+
+        function togglePopup(popup, show) {
+            let popupDOMNode = null;
+
+            if (typeof popup === "string") {
+                popupDOMNode = document.querySelector(popup);
+            }
+            else if (popup instanceof HTMLElement) {
+                popupDOMNode = popup;
+            }
+
+            if (popupDOMNode === null) return;
+
+            toggleAnimation({
+                show,
+                el: popupDOMNode,
+                visibleClass: "popup_visible",
+                animationClass: "popup_appeared",
+            });
+        }
+
+        // форма обратной связи
+        document.addEventListener("formResponse", (event) => {
+            const { form, data: response } = event.detail;
+            const isError = response.status === 0;
+            let responseOutput = form.querySelector(".feedback-form__reponse");
+
+            if (responseOutput === null) {
+                responseOutput = document.createElement("DIV");
+                responseOutput.className = "feedback-form__reponse";
+                form.append(responseOutput);
+            }
+
+            responseOutput.textContent = isError ? response.result : "Ваше сообщение успешно отправлено";
+            responseOutput.classList.toggle("feedback-form__reponse_errored", isError);
+
+            if (!isError) {
+                form.reset();
+                form
+                    .querySelector("button[type='submit'], input[type='submit']")
+                    .disabled = true;
+            }
+        });
+
+        // поиск по сайту
+        document.addEventListener("submit", (event) => {
+            const form = event.target;
+            const isSearchForm = form.matches("form.search");
+
+            if (!isSearchForm) return;
+
+            event.preventDefault();
+
+            const val = form
+                .querySelector("input[name='query']")
+                .value;
+
+            MPAjax.loader.currentProps = {};
+
+            const StateData = {
+                place: MPAjax.PlaceID,
+                source: MPAjax.SourceID,
+                replaces: MPAjax.ReplaceList,
+            };
+
+            MPAjax.ReplaceList = [{
+                place: StateData.place,
+                source: StateData.source,
+                "type": "mainBlock"
+            }];
+            History.pushState(StateData, null, `/search/query/${val}`);
         });
 
         RadioZenit.isInited = true;
@@ -522,7 +648,8 @@ RadioZenit.initializers[RadioZenit.indexPageAn] = () => {
                 tab.classList.toggle("news__inner_visible", tab.dataset.tab === targetTab);
             });
         });
-
+        document.querySelectorAll(".tags__btn_active").forEach(el=>el.click());
+        
         function checkIndexPageSliders() {
             let viewportWidth = body.clientWidth;
 
@@ -570,8 +697,6 @@ RadioZenit.initializers[RadioZenit.programPageAn] = () => {
     isDocReady(() => {
         const podcastSliderSelector = ".podcast-slider";
 
-        // слайдер с подкастами находится только на общей (/program) странице программ
-        // на детальной (/program/id/<id>) его нет
         if (document.querySelector(podcastSliderSelector) === null) return;
 
         const { body } = document;
@@ -610,6 +735,16 @@ RadioZenit.initializers[RadioZenit.programPageAn] = () => {
     });
 };
 
+// акции
+RadioZenit.initializers[RadioZenit.actionPageAn] = () => {
+    isDocReady(() => {
+        const eventSwiper = new Swiper(".event-slider", {
+            slidesPerView: "auto",
+            resistanceRatio: 0,
+        });
+    });
+};
+
 // "о нас"
 RadioZenit.initializers[RadioZenit.aboutPageAn] = () => {
     isDocReady(() => {
@@ -643,6 +778,118 @@ RadioZenit.initializers[RadioZenit.aboutPageAn] = () => {
                     isTeamSliderInited = true;
                 }
             }
+        }
+    });
+};
+
+// "история эфира"
+RadioZenit.initializers[RadioZenit.historyPageAn] = () => {
+    isDocReady(() => {
+        const dateInput = document.querySelector(".history-form__input_t_date");
+        const form = document.getElementById("js-history-form");
+        const submitBtn = document.querySelector(".history-form__submit");
+
+        if (dateInput === null || form === null) return;
+
+        const datePicker = new Datepicker(dateInput, {
+            language: "ru",
+        });
+
+        submitBtn.addEventListener("click", async (event) => {
+            event.preventDefault();
+
+            const {
+                date: dateInput,
+                timefrom: fromInput,
+                timeto: toInput,
+            } = form;
+
+            dateInput.setCustomValidity("");
+            fromInput.setCustomValidity("");
+            toInput.setCustomValidity("");
+
+            const isDateValid = dateInput.checkValidity();
+            const isFromValid = fromInput.checkValidity();
+            const isToValid = toInput.checkValidity();
+            const isValid = isDateValid && isFromValid && isToValid;
+
+            dateInput.setCustomValidity(isDateValid ? "": "Необходимый формат дд.мм.гггг");
+            fromInput.setCustomValidity(isFromValid ? "": "Необходимый формат чч:мм");
+            toInput.setCustomValidity(isToValid ? "": "Необходимый формат чч:мм");
+
+            dateInput.classList.toggle("invalid", !isDateValid);
+            fromInput.classList.toggle("invalid", !isFromValid);
+            toInput.classList.toggle("invalid", !isToValid);
+
+            if (!isValid) return form.reportValidity();
+
+            const date = encodeURI(dateInput.value);
+            const timefrom = encodeURI(fromInput.value);
+            const timeto = encodeURI(toInput.value);
+            const url = `${form.action}/date/${date}/timeto/${timeto}/timefrom/${timefrom}`;
+
+            const response = await fetch(url, {
+                method: "GET",
+            });
+            const data = await response.text();
+            const responseOutput = document.getElementById("search-result");
+
+            if (responseOutput !== null) {
+                responseOutput.innerHTML = data;
+            }
+        });
+    });
+};
+
+// "трансляции"
+RadioZenit.initializers[RadioZenit.livePageAn] = () => {
+    isDocReady(() => {
+        // пока кастомный селект присутствует только на одной странице
+        // решил запилить функционал только для этой страницы
+        // возможно, в будущем потребуется оофрмить в виде отдельной либы (или типа того)
+
+        [ ...document.querySelectorAll(".dropdown") ].forEach((component) => {
+            const _openBtn = component.querySelector(".dropdown__btn");
+
+            _openBtn.addEventListener("blur", (event) => {
+                component.classList.remove("dropdown_opened");
+            });
+
+            component.addEventListener("click", (event) => {
+                event.preventDefault();
+
+                const { target } = event;
+                const openBtn = target.closest(".dropdown__btn");
+                const itemBtn = target.closest(".dropdown__item");
+
+                if (openBtn !== null) {
+                    component.classList.toggle("dropdown_opened");
+
+                    return;
+                }
+
+                if (itemBtn === null) return;
+
+                const textToShow = itemBtn.dataset.text || itemBtn.textContent.trim();
+
+                _openBtn.querySelector(".dropdown__btn-text")
+                    .textContent = textToShow;
+                component.classList.remove("dropdown_opened");
+
+                filter(itemBtn.value);
+            });
+        });
+
+        const itemsToFilter = [ ...document.querySelectorAll("[data-tag]") ];
+
+        function filter(tagToShow) {
+            itemsToFilter.forEach((block) => {
+                const { tag } = block.dataset;
+
+                block.style.display = (tagToShow === "*" || tagToShow === tag)
+                    ? ""
+                    : "none";
+            });
         }
     });
 };
@@ -703,7 +950,7 @@ function throttle(fn, ctx, ms) {
             fn.call(ctx, ...args);
         }
         else {
-            pendingCall = setTimeout(decorator, ms - diff, args);
+            pendingCall = setTimeout(decorator, ms - diff, ...args);
         }
     };
 

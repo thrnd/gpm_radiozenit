@@ -5,17 +5,13 @@ mixin social-links({ isBiggerSize } = {})
             code: "vk",
             text: "Радио Зенит во ВКонтакте"
         }, {
+            link: "https://t.me/radiozenit897fm",
+            code: "tg",
+            text: "Радио Зенит в Телеграм"
+        }, {
             link: "https://www.youtube.com/channel/UC94iJtzzDtdjuwAZ_nbiyYg/videos",
             code: "yt",
             text: "Радио Зенит в Youtube"
-        }, {
-            link: "https://twitter.com/radiozenit",
-            code: "tw",
-            text: "Радио Зенит в Twitter"
-        }, {
-            link: "https://www.instagram.com/radiozenit897/",
-            code: "ig",
-            text: "Радио Зенит в Instagram"
         }]
 
     ul.social-links.list-reset(class=`${isBiggerSize ? "social-links_s_big" : ""}`)&attributes(attributes)

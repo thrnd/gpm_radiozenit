@@ -1,0 +1,131 @@
+:root {
+    --white:        #ffffff;
+    --black:        #2C2C2C;
+    --blue:         #1E3364;
+    --d-blue:       #060F41;
+    --l-blue:       #00A9DD;
+    --gray:         #C7C7C7;
+    --d-gray:       #7A7C81;
+    --l-gray:       #F5F5F5;
+
+    --black-10:     #0000001a;
+    --white-20:     #ffffff32;
+    --white-50:     #ffffff7f;
+    --white-75:     #ffffffbf;
+    --blue-50:      #1E33647f;
+    --blue-75:      #1E3364bf;
+    --gray-50:      #C7C7C788;
+
+    --error: #ff7c7c;
+
+    --loader-light: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAKnSURBVHgBrZa7axRRFMbPzE7EuCE+CuNbfBSi2KggRMHGQgsFsfEfsBDsBWsbG22thRQ2ipW1oBY+8BUNRKIIQROMxihuss7Ojt+3c+7umevumt3xwMeZmb33/O45e++ZCeQflqbpVrhNqjI0CCXQEvQF+gq9D4Lge7c4QRfAdrhRBSSqmvoYqpt7+lloAsC5ZYEAWAl3DDpkAC64Bcbqa964KWgSwFpHECBr4c5B69us2Plf6kMD9DNegF4AtvgXSDM5D420gbyEXkNzmFzV8QNwXNg2aLM3p66w5y4zCzoNd0QH2TLcxeAF6WKYuwrugGSbJTGwacydaoIwcDfcBV4a0BMMui09GOLsk6zsicaiH0ecH6GOOQlFUEk10yukseogeCPZdncl56K5ayXEKrbA7zEQ6qb0b5NQ1cDKYAwxo1EP8hQrm5c+DXN5kGclv+3LBPFgRkaPpbjNS367DzLwDsnOBDcG/8BpKW48P7HGo5UIGtIbPqwg9YoUNMRI8L/8liwBWujKRUig1//LmFHJxSbxm7Q2wmo9fIUMMRjXHvyYD7jv2U5cdjuluEWSb8RLBE1Ilk2kwONS3FZIq7sTVCVo3IDoTyD1EenTtGwuI7fFKyF2CEFvPdgl6d8GJP9+qrKDu+03poBQ/UGs7LL0aJjjzqLtCo13UgME4iu4O5JvRacwcQzauAzAGr76Ecd2/2Y2TZAaG+kHycrnMmOzvYcgV6DD0LAJzqNwFLqB28/QO1xf18CE8MDGbrz/Kt8Ad1Xy3Tzy/KJer5PWkbC/7wLso5+1zYglnIG7CN2SVv8LzILoh1WuTHVzzYq0fRuH/gPAfkLXJPt+eGYAnT7NUtV96Gyn77uO33XNKGnKMp6B9kN7JSsZS/RJ9Qh6CMCDbnH+AKvLJ9b2JPD1AAAAAElFTkSuQmCC");
+    --loader-dark: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAShSURBVHgBrVZLbFRlFD7n/P+dTjt9QqRSoLSFhKZAIh0aElhIjAvdmLhgpxGlNIG4caOJG9bujMaYIBA0YWFITIxGt10IiqUQBSEh9N30kb6HttOZ+z/8/tvaNCjVtp7kZube/9xzzved12X6F9nX9vaegovqlPg6Tz5Dlku9d9YLLYnlCVYyxRVlvf2dH8+uZ4efddB45MxeQ3xchOq8J0sM4ySG8d8TxYq9M94bFmWZvPGOxktZHj7qvjj5nxw1NJxO047oRe/cUe9hBNE7ZhijmIWSe+8Zhl3shI14OMdz56HjrSXvepqq+h51dnaatXbV2pv6w+dqXAW9SY4OMGLw5ABC4Qe+cA7KPJznSamYyAEcIwZvWXBAygmxdUSVc0s12ysaT07lhn8xf0PUcPJC2i2OnEWstbDqEjpAE7MY591vZKN76YWBycePfywE/Wy2Ixouydek8lE9ednFETCaQKXGO7HD23P7qvvv/oVs1dGeo++8xk5OECehQplt7GxPiehve7svztE6sjPbURYRtQJuZplea8GlY3HDQ91f9qw62t16Zj8znQN00A/igiPvuwbuXP6GNiD1bWcPstgdrshWR8gm8vZE0venb32ak6AgLK8iJzoQHZIAN2MbdRJksOuLP2yMcoeFYuwMW+9KTKEu8bHrWPtuZLsZiFRyhQKx+ivapOhK88hbX0CZWPgxSF3muZbz5aJiPs4JkhU0nm8P3vt8hjYp/Z1Xl6wuGVdaGeuMDRdLMSOorr0srFHJGuWqreZfaYtSvcAzBg5Eo8fAj2hTivxTI2pfSESjYiJneZi2KA8OTuRBTay8MqqgjMMfAV3l4FOj1AQUFka7Ly7SVuX6dXS4FI0Wa1RsUyBPewZtFKo6KXVN/5PYPMVRBoCABB3FIp6m0TcquYiqQvPRluWCsHJOWbESka1IUxyom8KERmMTioG0ZtNEW5SWFtIqYmtCntBNCzNYKdgxD0Npo/o0uIswhl6mLcrEjolUDCdFGxudElu+vbwgIOw+zlQocWRKIVmvNB5qr6VNywXJzKa0TotdxCgquJR5XHpvUYZuX7mP/DxIUDFQMdhN8Qe0Wdk/Hc1ncnahmLMKOzieNwXCBE9mHfroGoWpEPopTAj22T2t7R/SxoUpNebT7onRebK1u8RO7uzNh4Nk8eVG74xX7zxaAdoOhXEE9fC8uaruyEs1dW0/z412z69nveGF09U1TSdqZ4e6Zk8ePMVmeoJsFVHfzWJM/T/EyxGsSBh8ZWXFT1B5B4AqrFeNrZHMQBH+nr18l9MLD6dvXcsF/aZsRxU22mEw8Qb03kqCZvps8Pal94hOrWzu6yALluipb4aGttPPO6c/wkkz0yoyTcsDVy9PeM6HIGBhG9Cj4UkzrejhXFm/r+/u5YGnUcvam/6uq2OlafeukPsagYQvgbAGeTUgjBEgrMSXQyUnS9KHb4nlqKGJs74Zb+f+OXnPkPrW9ixcncdiPwYkemVyhELRYUnCqQrUJmiX0dyAo/eH71z6fUOOVunMdjRbsq9DFfmgFjjdljj0fgQvj8DCTQC6Mdh95af17PwJ0wJo08E0+BsAAAAASUVORK5CYII=");
+
+    --main-bg:          var(--d-blue);
+    --secondary-bg:     var(--blue);
+    --title:            var(--white);
+    --title_index:      var(--l-blue);
+    --text:             var(--white);
+    --text-secondary:   var(--white);
+
+    --header-bg:        var(--l-blue);
+    --header-btns:      var(--white);
+
+    --menu-bg:          var(--blue);
+
+    --feedback-c-hovered:   var(--blue);
+    --feedback-bg-hovered:  var(--l-blue);
+
+    --input-bdc:            var(--white-50);
+    --input-bdc--hovered:   var(--white-75);
+    --input-bdc--focused:   var(--white);
+
+    --progress-bar-bg:  var(--white-20);
+
+    --player-bg:                    #11183F;
+    --playlist-full-link:           var(--white);
+    --playlist-full-link_hovered:   var(--l-blue);
+
+    --play-btn-loader:              var(--loader-light);
+    --play-btn-loader_main-player:  var(--loader-dark);
+
+    --socials_hovered: var(--l-blue);
+
+    --pagination: var(--white);
+
+    --podcast-bg:               var(--d-blue);
+    --podcast-secondary-bg:     var(--blue);
+    --podcast-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+
+    --index-video-shadow:   var(--d-blue);
+    --index-news-bg:        #111B43;
+    --news-link_hovered:    var(--l-blue);
+
+    --history-submit:           var(--white);
+    --history-submit--hovered:  var(--l-blue);
+
+    --match-buy-link:   #122153;
+
+    // datepicker colors
+    --dp-bg:            var(--secondary-bg);
+    --dp-d-bg:          #1a2c57;
+    --dp-btn-active:    #f2f2f2;
+
+    @media (min-width: 992px) {
+        --player-bg:    var(--blue);
+
+        --play-btn-loader_main-player:  var(--loader-light);
+    }
+}
+
+.light-theme {
+
+    @media (max-width: 991px) {
+        --main-bg:          var(--l-gray);
+        --secondary-bg:     var(--white);
+        --title:            var(--black);
+        --title_index:      var(--blue);
+        --text:             var(--black);
+        --text-secondary:   var(--blue);
+
+        --header-bg:        var(--white);
+        --header-btns:      var(--l-blue);
+
+        --menu-bg:          var(--l-gray);
+
+        --feedback-c-hovered:   var(--white);
+        --feedback-bg-hovered:  var(--blue);
+
+        --input-bdc:            var(--blue-50);
+        --input-bdc--hovered:   var(--blue-75);
+        --input-bdc--focused:   var(--blue);
+
+        --progress-bar-bg:  var(--gray-50);
+
+        --player-bg:                    var(--secondary-bg);
+        --playlist-full-link:           var(--l-blue);
+        --playlist-full-link_hovered:   var(--blue);
+
+        --play-btn-loader:              var(--loader-dark);
+        --play-btn-loader_main-player:  var(--loader-light);
+
+        --pagination: var(--l-blue);
+
+        --podcast-bg:               var(--white);
+        --podcast-secondary-bg:     var(--l-gray);
+        --podcast-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+
+        --index-video-shadow:   var(--white);
+        --index-news-bg:        var(--white);
+        --news-link_hovered:    var(--black);
+
+        --history-submit:           var(--l-blue);
+        --history-submit--hovered:  var(--text);
+
+        --match-buy-link:   var(--l-gray);
+
+        // datepicker colors
+        --dp-bg:            var(--secondary-bg);
+        --dp-d-bg:          #f2f2f2;
+    }
+}

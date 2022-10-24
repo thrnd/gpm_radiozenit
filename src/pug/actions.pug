@@ -4,7 +4,7 @@ append vars
     - pageTitle = "Акции"
 
 append content
-    .container.container_page_inner
+    .container.container_page_inner.section
         +breadcrumps({
             items: ["Акции"]
         })
@@ -19,11 +19,31 @@ append content
                     .action
                         a.action__link(href="#")
                             img.action__img(src=`img/action-${Math.ceil(Math.random() * 2)}.jpg` alt="asd")
-                        .action__desc
-                            | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex minus cum recusandae. Facere voluptatum neque, saepe a hic illum voluptate sapiente quibusdam aut maiores! Veritatis inventore voluptatem deleniti atque fugit! Eveniet nulla quos necessitatibus, quaerat quae, officiis atque qui similique ex numquam tempore, consectetur corrupti suscipit perferendis aut recusandae doloremque?
+                        .action__inner
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex minus cum recusandae. Facere voluptatum neque, saepe a hic illum voluptate sapiente quibusdam aut maiores! Veritatis inventore voluptatem <a href="#">deleniti</a> atque fugit! Eveniet nulla quos necessitatibus, quaerat quae, officiis atque qui similique ex numquam tempore, consectetur corrupti suscipit perferendis aut recusandae doloremque?
                 - n++
 
-        .section
-            +pagination
+        h2.title
+            | События
+
+        .section.event-slider.swiper-container
+            .event-list.list-reset.swiper-wrapper
+                - let event = 0
+                while event < 6
+                    .event-list__item.swiper-slide
+                        .event
+                            img.event__img(src="img/event.jpg" alt="event" width="278" height="200")
+                            .event__inner
+                                .event__name
+                                    a.event__link(href="#")
+                                        | Фанатская заброска
+                                .event__date
+                                    | 31.02.21 - 31.03.21
+                        - event++
+
+    .section.container
+        +pagination
 
 append scripts
+    script(src="js/swiper.5.2.0.min.js") 

@@ -9,8 +9,64 @@ append content
             items: ["Трансляции"]
         })
 
-        h2.title
+        h1.title.title_page_live
             | Предстоящие матчи
+
+        .match-page-filter
+            .dropdown.match-page-filter__control
+                button.dropdown__btn(type="button")
+                    span.dropdown__btn-text
+                        | Выбрать месяц
+                    +svg("arrow")(class="dropdown__icon" width="8" height="4")
+                .dropdown__list
+                    button.dropdown__item(type="button" value="*" data-text="Выбрать месяц")
+                        | Показать все
+                    button.dropdown__item(type="button" value="Октябрь, 2021")
+                        | Октябрь, 2021
+                    button.dropdown__item(type="button" value="Февраль, 2021")
+                        | Февраль, 2021
+                    button.dropdown__item(type="button" value="Сентябрь, 2021")
+                        | Сентябрь, 2021
+                    button.dropdown__item(type="button" value="Август, 2021")
+                        | Август, 2021
+
+        h2.title.title_s_sm(data-tag="Октябрь, 2021")
+            | Октябрь, 2021
+
+        ul.match-list.list-reset(data-tag="Октябрь, 2021")
+            -
+                var matches = [{
+                    date: "20:00<br>Воскресенье<br>17.03",
+                }, {
+                    date: "20:00<br>Среда<br>17.03",
+                }, {
+                    date: "20:00<br>Воскресенье<br>17.03",
+                }, {
+                    date: "20:00<br>Вторник<br>17.03",
+                }, ]
+                var n = 0
+            while n < matches.length
+                li.match-list__item
+                    +match({
+                        mixin: "match_page_live",
+                        title: "Тинькофф Российская Премьер-Лига",
+                        place: "«Ростов Арена», Ростов",
+                        team1: {
+                            img: "cska-logo.png",
+                            name: "ЦСКА Москва"
+                        },
+                        team2: {
+                            img: "zenit-logo.png",
+                            name: "Зенит"
+                        },
+                        date: matches[n].date,
+                        buyLink: n % 2 === 0,
+                        isLivePage: true,
+                    })
+                    - n++
+
+        h2.title.title_s_sm
+            | Май, 2021
 
         ul.match-list.list-reset
             -
@@ -22,15 +78,14 @@ append content
                     date: "20:00<br>Воскресенье<br>17.03",
                 }, {
                     date: "20:00<br>Вторник<br>17.03",
-                }, {
-                    date: "20:00<br>Суббота<br>17.03",
-                },]
+                }, ]
                 var n = 0
             while n < matches.length
                 li.match-list__item
                     +match({
                         mixin: "match_page_live",
-                        title: "Тинькофф Российская Премьер-Лига",
+                        title: "Премьер-Лига",
+                        place: "Ростов",
                         team1: {
                             img: "cska-logo.png",
                             name: "ЦСКА Москва"
@@ -39,7 +94,47 @@ append content
                             img: "zenit-logo.png",
                             name: "Зенит"
                         },
-                        date: matches[n].date
+                        date: matches[n].date,
+                        buyLink: n % 2 === 0,
+                        isLivePage: true,
+                    })
+                    - n++
+
+        h2.title
+            | Прошедшие матчи
+        h3.title.title_s_sm
+            | Сентябрь, 2020
+
+        ul.match-list.list-reset
+            -
+                var matches = [{
+                    date: "20:00<br>Воскресенье<br>17.03",
+                }, {
+                    date: "20:00<br>Среда<br>17.03",
+                }, {
+                    date: "20:00<br>Воскресенье<br>17.03",
+                }, {
+                    date: "20:00<br>Вторник<br>17.03",
+                }, ]
+                var n = 0
+            while n < matches.length
+                li.match-list__item
+                    +match({
+                        mixin: "match_page_live",
+                        title: "Премьер-Лига",
+                        place: "Ростов",
+                        team1: {
+                            img: "cska-logo.png",
+                            name: "ЦСКА Москва"
+                        },
+                        team2: {
+                            img: "zenit-logo.png",
+                            name: "Зенит"
+                        },
+                        score: "1 : 7",
+                        date: matches[n].date,
+                        pastDate: "17.03",
+                        isLivePage: true,
                     })
                     - n++
 

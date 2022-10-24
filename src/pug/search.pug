@@ -1,0 +1,64 @@
+extends ./components/_base
+
+append vars
+    - pageTitle = "Поиск по сайту"
+
+append content
+    .container.container_page_inner
+        +breadcrumps({
+            items: ["Поиск по сайту"]
+        })
+
+        h1.title.title_page_live
+            | Поиск по сайту
+
+        +search({ text: "Новости пепеги" })(class="search_page_search")
+
+        +tags({
+            mixin: "tags_page_search",
+            data: [{
+                isActive: true,
+                text: "Программы",
+            }, {
+                text: "Видео",
+            }, {
+                text: "Новости",
+            }]
+        })
+
+        -
+            const titles = [
+                "Lorem ipsum",
+                "Женский «Зенит» выиграл первый  матч сезона",
+                "ЧМ-2021 по хоккею пройдут при пустых трибунах", 
+                "Туомас Саммелвуо рассказл о состоянии Ореола Камехо",
+                "СКА продлил контракт с Оскаром Фантенбергом",
+                "«Зенит» разгромил «Ахмат»"
+            ]
+
+        - let n = 0
+        //- while n < 6
+        //-     +search-result({
+        //-         isSm: true,
+        //-         img: "podcast-1.png",
+        //-         title: titles[n],
+        //-         desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis dicta unde consequatur quia aliquid ipsam ullam deserunt, iste eius nobis commodi quibusdam numquam illo sapiente, dolores est quam eligendi tempora?".slice(0, Math.round( Math.random() * 80 + 20 ))
+        //-     })
+        //-     - n++
+
+        //- videos
+        - n = 0
+        while n < 6
+            +search-result({
+                index: n,
+                img: "search-1.jpg",
+                date: "25.09.23",
+                title: titles[n],
+                desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis dicta unde consequatur quia aliquid ipsam ullam deserunt, iste eius nobis commodi quibusdam numquam illo sapiente, dolores est quam eligendi tempora?"
+            })
+            - n++
+
+        .section
+            +pagination
+
+append scripts

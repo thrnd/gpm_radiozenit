@@ -1,0 +1,16 @@
+mixin search-result({ index, isSm, img, date, title, desc })
+    .search-result
+        if index % 2 == 1
+            a.search-result__img-wrap(class=`${isSm ? "search-result__img-wrap_size_sm" : ""}` href="#")
+                img.search-result__img(src=`img/${img}` alt=title)
+        else
+            .search-result__img-ph
+        .search-result__info
+            if date
+                .search-result__date
+                    = date
+            h2.title.search-result__title
+                a.search-result__link(href="#")
+                    = title
+            p.search-result__desc
+                = desc

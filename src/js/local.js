@@ -7,10 +7,22 @@ document.addEventListener("click", (event) => {
     // playBtn.classList.toggle("play");
 });
 
+document.addEventListener("keydown", (event) => {
+    if (event.code !== "KeyL") return;
+
+    document.documentElement.classList.toggle("light-theme");
+});
+
 var MP = {
     ParseQueryString(url) {
+        const page = window.location.pathname
+            .replace("/", "")
+            .replace(".html", "");
+
         return {
-            an: "about-us"
+            an: page
         };
     }
 }
+
+var History = { Adapter() {} };

@@ -1,0 +1,75 @@
+extends ./components/_base
+
+append vars
+    - pageTitle = "Плейлист эфира"
+
+append content
+    .container.container_page_inner
+        +breadcrumps({
+            items: ["Плейлист эфира"]
+        })
+
+        h1.title
+            | Плейлист эфира
+
+        form.history-form(action="#" method="get")
+            .history-form__title
+                | Дата и время эфира:
+
+            .history-form__inner
+                label.label.history-form__item.history-form__item_t_date
+                    input.input.history-form__input.history-form__input_t_date(type="text" name="date" value="10.08.2021")
+                    span.visually-hidden
+                        | Дата
+                    +svg("calendar")(class="history-form__icon" width="18" height="18")
+                label.label.history-form__item
+                    input.input.history-form__input(type="text" name="from" value="10:10")
+                    span.visually-hidden
+                        | Время в эфире, от
+                span.history-form__item.history-form__item_t_delim
+                    | -
+                label.label.history-form__item
+                    input.input.history-form__input(type="text" name="to" value="10:10")
+                    span.visually-hidden
+                        | Время в эфире, до
+
+            button.history-form__submit(type="submit")
+                | Показать
+
+        ul.playlist.playlist_view_history.list-reset
+            -
+                var tracks = [{
+                    time: "12:00",
+                    title: "Кино",
+                    name: "Место для шага вперед",
+                }, {
+                    time: "11:55",
+                    title: "HIM",
+                    name: "Wicked game",
+                }, {
+                    time: "11:51",
+                    title: "Чичерина",
+                    name: "Блюдца",
+                }, {
+                    time: "11:48",
+                    title: "Red Hot Chili Peppers",
+                    name: "Under The Bridge",
+                }, {
+                    time: "11:45",
+                    title: "AC/DC",
+                    name: "You shook me all night long",
+                }, {
+                    time: "11:41",
+                    title: "Аквариум",
+                    name: "Темный как ночь",
+                }, {
+                    time: "11:35",
+                    title: "Кино",
+                    name: "Место для шага вперед",
+                }]
+            each track in tracks
+                li.playlist__item
+                    +player({ playerClass: "player_view_main-playlist", trackData: track })
+
+append scripts
+    script(src="./js/Datepicker.min.js")

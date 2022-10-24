@@ -6,6 +6,8 @@ header.page-header
                     span.toggle-menu-btn__line
 
                 .menu-wrap
+                    .menu-wrap__search
+                        +search
                     ul.menu.list-reset
                         li.menu__item.menu__item_link-to_main
                             a.menu__link(href="/")
@@ -15,7 +17,7 @@ header.page-header
                                 | Трансляции
                         li.menu__item
                             a.menu__link(href="#")
-                                | Подкасты
+                                | Программы
                         li.menu__item
                             a.menu__link(href="#")
                                 | Видео
@@ -65,6 +67,8 @@ header.page-header
             .main-player
                 +play-btn({ iconClass: "main-player__play-icon" })(class="play-btn_rounded main-player__btn main-player__play-btn play")
 
+                audio(data-player='zenit-main-player')
+
                 .main-player__inner
                     .main-player__text-line.main-player__text-line_t_title
                         span.main-player__text.main-player__text_t_title
@@ -95,11 +99,35 @@ header.page-header
                 span.page-header__back-to-live-text.page-header__back-to-live-text_for_desktop
                     | прямой эфир
 
-            .page-header__app-links
-                a.page-header__btn(href="https://play.google.com/store/apps/details?id=com.indygomobi.zenit" target="_blank" rel="noopener")
-                    +svg("android")(class="" width="23" height="26")
-                a.page-header__btn(href="https://itunes.apple.com/ru/app/radio-zenit/id1160707778?l=en&mt=8" target="_blank" rel="noopener")
-                    +svg("apple")(class="" width="23" height="27")
+            //- .page-header__search-wrap
+            +search(class="page-header__search")
+
+button.feedback-btn.popup-btn(type="button" data-popup-target=".popup_t_feedback-form" aria-label="Открыть форму обратной связи")
+    +svg("feedback")(class="feedback-btn__icon" width="32" height="32")
+
+.popup.popup_t_feedback-form
+    form.feedback-form.popup__inner(action="#" method="post" data-check)
+        button.feedback-form__close.popup__close(type="button" aria-label="Закрыть форму")
+        label.label.feedback-form__label.feedback-form__label_s_full-row
+            input.input.label__input(type="text" data-type="name" name="name" required data-required="true")
+            span.label__text
+                | Ваше имя
+        label.label.feedback-form__label
+            input.input.label__input(type="email" data-type="email" name="email" required data-required="true")
+            span.label__text
+                | E-Mail
+        label.label.feedback-form__label
+            input.input.label__input(type="tel" data-type="tel" name="phone")
+            span.label__text
+                | Телефон
+        label.label.feedback-form__label.feedback-form__label_s_wide
+            textarea.input.label__input.input_t_textarea(name="error" required data-required="true")
+            span.label__text
+                | Описание ошибки
+        button.feedback-form__submit(type="submit")
+            | Отправить
+        .feedback-form__reponse
+            | Ваше сообщение успешно отправлено!
 
 .main-playlist-wrap
     .main-playlist-wrap__outer
@@ -120,7 +148,7 @@ header.page-header
                     span.playlist-block__title
                         | Сейчас в эфире:
                     .playlist-track.playlist-track_s_lg
-                        img.playlist-track__cover(src="img/album-cover-placeholder.svg" width="185" height="185" alt="alt")
+                        img.playlist-track__cover(src="img/album-cover-placeholder_.png" width="163" height="74" alt="alt")
                         .playlist-track__inner
                             .playlist-track__title
                                 | Ночные снайперы
